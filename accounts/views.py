@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 
 def login(request):
+    
     return render(request, 'accounts/login.html')
 
 
@@ -10,7 +11,7 @@ def register(request):
 
 
 def logout(request):
-    return redirect(request, 'index')
+    return redirect('index')
 
 
 def dashboard(request):
