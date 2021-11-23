@@ -144,7 +144,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep environment variables in production secret!
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
