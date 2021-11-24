@@ -2,7 +2,7 @@ venv/
 .idea/
 .vscode/
 /static
-.env
+/btre/.env
 ### Django ###
 *.log
 *.pot
