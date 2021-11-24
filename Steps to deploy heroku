@@ -1,0 +1,31 @@
+1. Install required packages:
+pip install django gunicorn whitenoise dj-database-url psycopg2
+2. Create Procfile and paste this:
+web: gunicorn <nameOfProject>.wsgi --log-file -
+3. Create requirements.txt:
+pip freeze > requirements.txt
+4. Create runtime.txt file and add python runtime version:
+python-3.10.0 (Available version by the time of writing this doc)
+5. Add heroku project domain to ALLOWED_HOSTS:
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'nameofapp.herokuapp.com']
+6. Set environment variables:
+heroku config:set SECRET_KEY=secretkey
+7. Set DEBUG=False.
+8. Modify INSTALLED_APPS by adding whitenoise.runserver_nostatic ,
+also MIDDLEWARE by adding 'whitenoise.middleware.WhiteNoiseMiddleware' after Security Middleware
+and add STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+9. Add import dj_database_url at the top. After DATABASES add:
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+10. Also ensure you file has following variables
+STATIC_URL, STATIC_ROOT, STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL accordingly:
+11. add to git and commit.
+12. Adding and configuring Postgres:
+heroku addons:create heroku-postgresql:hobby-dev
+heroku config -s | grep DATABASE_URL
+heroku pg:info for getting information about database server.
+13. Make migrations for creating database tables:
+python manage.py makemigrations
+python manage.py migrate
+14. For connecting heroku remote postgres database:
+heroku pg:psql
